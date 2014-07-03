@@ -1,0 +1,68 @@
+# Leo's gitconfig
+# Last modified: Nov 27 2012
+
+# ----------------------------------------------------------------------------
+# "THE BEER-WARE LICENSE" (Revision 42):
+# Leo Urbina <leo.a.urbina@gmail.com> wrote this file. As long as you retain this notice you
+# can do whatever you want with this stuff. If we meet some day, and you think
+# this stuff is worth it, you can buy me a beer in return
+#
+# Leo Urbina
+# ----------------------------------------------------------------------------
+
+[user]
+        name = Leo Urbina
+        email = leo@bitsighttech.com
+[core]
+        autocrlf        = input
+        safecrlf        = true
+        editor          = emacsclient -t
+
+[alias]
+        co     = checkout
+        ci     = commit
+        st     = status
+        br     = branch
+        df     = diff --patience
+        dw     = diff --word-diff --patience
+        dt     = difftool
+        dtc    = difftool --cached
+        dwc    = diff --word-diff --cached --patience
+        dfc    = diff --cached --patience
+        lg     = log -p
+        ls     = ls-files
+        lol    = log --graph --decorate --pretty=format:\"%Cblue %h%C(magenta) %ad %C(cyan) %d %Creset %s %C(green)[%an]\" --date=short
+        lal    = log --graph --decorate --pretty=format:\"%Cblue %h%C(magenta) %ad %C(cyan) %d %Creset %s %C(green)[%an]\" --date=short --all
+        l     = log --pretty=format:\"%Cblue%h %C(magenta)%ad %C(green)[%an] %Creset%s %C(cyan)%d\" --date=short
+        la     = log --pretty=format:\"%Cblue%h %C(magenta)%ad %C(green)[%an] %Creset%s %C(cyan)%d\" --date=short --all
+        up     = log --since yesterday --author leo@bitsighttech.com --pretty=short
+        author = log --pretty=format:\"%C(blue) %h %C(magenta) %ad %Creset %s %C(green) [%an]\" --date=short --author
+        ready  = rebase -i
+        type   = cat-file -t
+        dump   = cat-file -p
+        mergeb = merge --no-ff
+        pushu  = push -u origin
+        stap   = stash save --keep-index
+[diff]
+        tool = diffuse
+[color]
+        ui = auto
+[color "branch"]
+       current = green reverse
+       local = green
+       remote = yellow
+[color "diff"]
+       meta = yellow bold
+       frag = magenta bold
+       old = red bold
+       new = green bold
+[color "status"]
+       add = yellow
+       changed = green
+       untracked = cyan
+[difftool]
+        prompt = false
+[push]
+        default = simple
+[branch]
+        autosetuprebase = always
