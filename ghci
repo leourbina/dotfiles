@@ -1,0 +1,4 @@
+let ghciEspaceShellArg arg = "'" ++ concatMap (\c -> if c == '\'' then "'\"'\"'" else [c]) arg ++ "'"
+:def! search return . (":! hoogle --color " ++) . ghciEspaceShellArg
+:def! doc return . (":! hoogle --info --color " ++) . ghciEspaceShellArg
+:set prompt "\ESC[34m%s \ESC[32mλ:\ESC[m "
