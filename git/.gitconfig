@@ -1,0 +1,84 @@
+# Leo's gitconfig
+# Last modified: Nov 22 2012
+
+# ----------------------------------------------------------------------------
+# "THE BEER-WARE LICENSE" (Revision 42):
+# Leo Urbina <me@leourbina.com> wrote this file. As long as you retain this notice you
+# can do whatever you want with this stuff. If we meet some day, and you think
+# this stuff is worth it, you can buy me a beer in return
+#
+# Leo Urbina
+# ----------------------------------------------------------------------------
+
+[user]
+        name = Leo Urbina
+        email = leo.urbina@sevenrooms.com
+[core]
+        autocrlf        = input
+        safecrlf        = true
+        editor          = emacsclient -t
+
+[alias]
+        co     = checkout
+        ci     = commit
+        st     = status
+        br     = branch
+        df     = diff -M
+        dw     = diff --word-diff --patience -M
+        dt     = difftool
+        dtc    = difftool --cached
+        dwc    = diff --word-diff --cached --patience -M
+        dfc    = diff --cached --patience -M
+        mt     = mergetool
+        lg     = log -p
+        ls     = ls-files
+        lol    = log --graph --decorate --pretty=format:\"%Cblue %h%C(magenta) %ad %C(cyan) %d %Creset %s %C(green)[%an]\" --date=short        # Pretty print the commit log graph from the current branch
+        Lal    = log --graph --decorate --pretty=format:\"%Cblue %h%C(magenta) %ad %C(cyan) %d %Creset %s %C(green)[%an]\" --date=short --all  # Pretty print the commit log graph of all branches
+        l     = log --pretty=format:\"%Cblue%h %C(magenta)%ad %C(green)[%an] %Creset%s %C(cyan)%d\" --date=short                               # Pretty print the commit log from the current branch
+        la     = log --pretty=format:\"%Cblue%h %C(magenta)%ad %C(green)[%an] %Creset%s %C(cyan)%d\" --date=short --all                        # Pretty print the commit log of all branches
+        up     = log --since yesterday --author lurbina@hubspot.com --pretty=short                                                             # Find all commits since yesterday
+        author = log --pretty=format:\"%C(blue) %h %C(magenta) %ad %C(green) [%an] %Creset %s\" --date=short --author                          # Find all commits for the given author
+        ready  = rebase -i
+        type   = cat-file -t
+        dump   = cat-file -p
+        mergeb = merge --no-ff
+        pushu  = push -u origin HEAD
+        stap   = stash save --keep-index
+        pop    = stash pop
+[diff]
+        tool = Kaleidoscope
+[color]
+        ui = auto
+[color "branch"]
+       current = green reverse
+       local = green
+       remote = yellow
+[color "diff"]
+       meta = yellow bold
+       frag = magenta bold
+       old = red bold
+       new = green bold
+       whitespace = red reverse
+[color "status"]
+       add = yellow
+       changed = green
+       untracked = cyan
+[push]
+        default = simple
+[branch]
+        autosetuprebase = always
+[core]
+        excludesfile = /Users/lurbina/.gitignore_global
+[filter "media"]
+        clean = git media clean %f
+        smudge = git media smudge %f
+        required = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = main
+[credential]
+	helper = store

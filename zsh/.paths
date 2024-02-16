@@ -1,0 +1,5 @@
+/opt/homebrew/opt/coreutils/libexec/gnubin
+/opt/homebrew/bin
+./node_modules/bin
+$HOME/tools/bin
+$HOME/.rd/bin

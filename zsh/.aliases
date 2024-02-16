@@ -1,0 +1,21 @@
+# Aliases
+
+# Docker compose
+alias dc='docker-compose'
+
+function gi() { }
+
+# The "existing" strategy is broken
+alias rm="/opt/homebrew/opt/coreutils/bin/gmv -t $HOME/.Trash --backup=t --verbose"
+
+# Emacs
+alias e='emacsclient -t'
+alias ec='emacsclient -c'
+
+# lsd
+alias ls='lsd'
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias tree='ls --tree'
+alias r='./Taskfile'
