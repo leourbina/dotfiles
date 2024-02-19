@@ -127,6 +127,12 @@
 (setq backup-by-copying t)
 
 
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (when (eq major-mode 'compilation-mode)
+    (ansi-color-apply-on-region compilation-filter-start (point-max))))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
 (use-package yasnippet
   :ensure t)
 
@@ -432,22 +438,49 @@
   ;;(add-hook 'after-init-hook #'global-emojify-mode)
   )
 
-(defun my-rust-mode-hook ()
-  (yas-minor-mode)
-  (setq tab-width 4
-	indent-tabs-mode nil))
+(defun rk/rustic-mode-hook ()
+  ;; so that run C-c C-c C-r works without having to confirm, but don't try to
+  ;; save rust buffers that are not file visiting. Once
+  ;; https://github.com/brotzeit/rustic/issues/253 has been resolved this should
+  ;; no longer be necessary.
+  (when buffer-file-name
+    (setq-local buffer-save-without-query t))
+
+  (push 'rustic-clippy flycheck-checkers)
+  (add-hook 'before-save-hook 'lsp-format-buffer nil t))
 
 (use-package rustic
   :ensure t
+  :bind (:map rustic-mode-map
+	      ("M-j" . lsp-ui-imenu)
+	      ("M-?" . lsp-find-references)
+	      ("C-c C-c l" . flycheck-list-errors)
+	      ("C-c C-c a" . lsp-execute-code-action)
+	      ("C-c C-c r" . lsp-rename)
+	      ("C-c C-c q" . lsp-workspace-restart)
+	      ("C-c C-c Q" . lsp-workspace-shutdown)
+	      ("C-c C-c s" . lsp-rust-analyzer-status))
+  :config
+  ;; uncomment for less flashiness
+  ;; (setq lsp-eldoc-hook nil)
+  ;; (setq lsp-enable-symbol-highlighting nil)
+  ;; (setq lsp-signature-auto-activate nil)
 
-  :hook
-  (rustic-mode . my-rust-mode-hook)
+  ;; comment to disable rustfmt on save
+  (setq rustic-format-on-save t)
+  (setq rustic-rustfmt-args "--edition=2021")
+  (setq rustic-compile-command "rustc --edition=2021")
+  (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
 
-  :init
-  (setq rustic-lsp-server 'rls)
-  (setq lsp-rust-analyzer-cargo-watch-command "rustic-clippy")
-  (setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
-  (setq rustic-format-on-save nil))
+(use-package cargo
+  :ensure t
+  :hook (rust-mode . cargo-minor-mode))
+
+(defun my-colorize-cargo-watch ()
+  (when (eq major-mode 'cargo-process-mode)
+    (ansi-color-apply-on-region (point-min) (point-max))))
+
+(add-hook 'compilation-filter-hook 'my-colorize-cargo-watch)
 
 (use-package yaml-mode
   :ensure t)
@@ -482,7 +515,7 @@
  '(lsp-pyright-typechecking-mode "off")
  '(lsp-pyright-venv-directory nil)
  '(lsp-pyright-venv-path "/Users/leourbina/.virtualenvs/")
- '(lsp-rust-analyzer-cargo-watch-command "rustic-clippy")
+ '(lsp-rust-analyzer-cargo-watch-command "clippy")
  '(lsp-rust-analyzer-macro-expansion-method 'rustic-analyzer-macro-expand)
  '(lsp-rust-server 'rls)
  '(lsp-signature-auto-activate nil)

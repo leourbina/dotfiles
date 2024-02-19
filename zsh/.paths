@@ -3,3 +3,6 @@
 ./node_modules/bin
 $HOME/tools/bin
 $HOME/.rd/bin
+$HOME/.local/share/n/bin
+$HOME/.cargo/bin
+/opt/homebrew/opt/mysql-client@5.7/bin

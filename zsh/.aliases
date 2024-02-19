@@ -19,3 +19,6 @@ alias la='ls -a'
 alias lla='ls -la'
 alias tree='ls --tree'
 alias r='./Taskfile'
+
+# 7R
+alias gulp='yarn gulp'
